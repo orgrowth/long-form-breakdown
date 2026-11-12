@@ -1,8 +1,6 @@
-# long-form-brief
+# long-form-breakdown
 
 A Claude Code skill that turns raw long-form footage into a detailed editor brief: the full transcript with every take marked keep or cut, the reference videos to match with real screenshots, and the graphics to add at each line. Hand the brief to a human editor, or hand it back to Claude Code with the footage and say "edit this footage to the brief".
-
-In the video it appears as `/long-form-breakdown`, its earlier name. Both names trigger it.
 
 ## Why a brief
 
@@ -35,12 +33,12 @@ mkdir -p ~/.cache/whisper-cpp && curl -L -o ~/.cache/whisper-cpp/ggml-small.en.b
 ## Install
 
 ```bash
-git clone https://github.com/orgrowth/long-form-brief ~/.claude/skills/long-form-brief
+git clone https://github.com/orgrowth/long-form-breakdown ~/.claude/skills/long-form-breakdown
 ```
 
 ## Use
 
-In Claude Code, put your raw video, mic recordings, screen recordings and b-roll in one folder, then say "build the editor brief for this footage" and give it the folder, or type `/long-form-brief`. Paste the script you filmed from if there was one. Everything runs on your machine except the reference downloads.
+In Claude Code, put your raw video, mic recordings, screen recordings and b-roll in one folder, then say "build the editor brief for this footage" and give it the folder, or type `/long-form-breakdown`. Paste the script you filmed from if there was one. Everything runs on your machine except the reference downloads.
 
 Then, if Claude is editing: drop the brief into the same session with the footage and say "edit this footage to the brief". Lock the base cut before any graphics are made, and every time you fix the same thing twice, add it to your rules so the next brief carries it.
 

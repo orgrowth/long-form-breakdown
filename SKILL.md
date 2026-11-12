@@ -1,13 +1,13 @@
 ---
-name: long-form-brief
-description: Turn long-form footage into an editor-ready brief, for a human editor or for Claude Code to edit from. Two routes chosen from the footage, one brief shape. Interview route; one long recording (interview, podcast, call, testimonial) becomes a full timestamped transcript plus a fix-notes editor brief PDF with hook references, keep/cut transcript, top-5 clip picks and a capture list. Editor-brief route; a folder of scripted takes (one file per script section, many takes per line) becomes the same PDF with every take marked keep or cut and graphics direction inline. Trigger on "brief this footage", "build the editor brief", "break down this interview", "transcribe and break down", "clips doc for the editor", "trim the repeated takes", "mark the keepers", /long-form-brief or /long-form-breakdown (its earlier name). Not for cutting short clips and not for single reels.
+name: long-form-breakdown
+description: Turn long-form footage into an editor-ready brief, for a human editor or for Claude Code to edit from. Two routes chosen from the footage, one brief shape. Interview route; one long recording (interview, podcast, call, testimonial) becomes a full timestamped transcript plus a fix-notes editor brief PDF with hook references, keep/cut transcript, top-5 clip picks and a capture list. Editor-brief route; a folder of scripted takes (one file per script section, many takes per line) becomes the same PDF with every take marked keep or cut and graphics direction inline. Trigger on "brief this footage", "build the editor brief", "break down this interview", "transcribe and break down", "clips doc for the editor", "trim the repeated takes", "mark the keepers", or /long-form-breakdown. Not for cutting short clips and not for single reels.
 metadata:
   requires:
     bins: [ffmpeg, ffprobe, whisper-cli, yt-dlp]
     optional: [google-chrome]
 ---
 
-# Long-form brief
+# Long-form breakdown
 
 ## Purpose
 
