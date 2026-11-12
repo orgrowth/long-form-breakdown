@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Editor brief · {{TITLE}}</title>
+<style>
+  /* House look. System font, numbered sections, rounded cards, red warnings, blue links. */
+  @page { size: A4; margin: 16mm 14mm; } /* A4 for en-GB; change to Letter for en-US */
+  html { font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif; color: #111; }
+  body { margin: 0; font-size: 11.5px; line-height: 1.45; }
+  a { color: #0b57d0; text-decoration: underline; }
+  h1 { font-size: 22px; margin: 0 0 4px; letter-spacing: 0.01em; }
+  h1 .sep { color: #999; padding: 0 6px; }
+  .lede { font-size: 13px; font-weight: 700; margin: 0 0 14px; }
+  h2 { font-size: 16px; margin: 22px 0 8px; padding-bottom: 4px; border-bottom: 3px solid #111; page-break-after: avoid; }
+  h3 { font-size: 13px; margin: 14px 0 6px; page-break-after: avoid; }
+  p { margin: 0 0 7px; }
+  ul { margin: 0 0 8px 18px; padding: 0; }
+  li { margin: 0 0 3px; }
+
+  /* Cards and boxes */
+  .card { border: 1px solid #ddd; border-radius: 8px; padding: 10px 12px; margin: 0 0 10px; background: #fafafa; }
+  .warn { border: 2px solid #c8102e; border-radius: 8px; padding: 10px 12px; margin: 10px 0; background: #fff5f6; }
+  .warn strong, .red { color: #c8102e; font-weight: 700; }
+  .legend { border: 1px solid #bbb; border-radius: 8px; padding: 10px 12px; margin: 0 0 12px; background: #fff; }
+  .legend .row { margin: 2px 0; }
+
+  /* Fix-notes convention */
+  .keep { color: #111; }
+  .cut { color: #c8102e; text-decoration: line-through; }
+  .add { display: block; border: 1.5px solid #1a7f37; border-radius: 6px; background: #eef8f0; color: #0f5a25; padding: 6px 9px; margin: 5px 0 7px 18px; }
+  .add::before { content: "ADD: "; font-weight: 700; }
+  .note { color: #777; font-style: italic; }
+  .ts { color: #555; font-variant-numeric: tabular-nums; margin-right: 6px; }
+  .line { margin: 0 0 3px; padding-left: 18px; text-indent: -18px; }
+
+  /* File blocks and page flow */
+  .keep-together { page-break-inside: avoid; }
+  .file-block { page-break-inside: avoid; margin: 0 0 14px; }
+  .file-block.long { page-break-before: always; page-break-inside: auto; }
+  .file-block.first { page-break-before: auto; }
+  .page-break { page-break-before: always; }
+
+  /* Reference rows: one nowrap row of small thumbnails */
+  .refrow { display: flex; flex-wrap: nowrap; gap: 6px; margin: 6px 0 10px; }
+  .refrow figure { margin: 0; flex: 1 1 0; min-width: 0; }
+  .refrow img { width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px; display: block; }
+  .refrow figcaption { font-size: 9.5px; color: #444; margin-top: 3px; line-height: 1.3; }
+
+  /* Tables */
+  table { border-collapse: collapse; width: 100%; margin: 0 0 12px; font-size: 10.5px; }
+  th, td { border: 1px solid #ccc; padding: 4px 6px; text-align: left; vertical-align: top; }
+  th { background: #f0f0f0; }
+  tr { page-break-inside: avoid; }
+  td.deliverable { font-weight: 700; background: #eef8f0; }
+  td.never { color: #c8102e; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<h1>{{TITLE}}<span class="sep">·</span>Editor brief<span class="sep">·</span>{{DATE}}</h1>
+<p class="lede">For the editor cutting {{PIECE}} for {{AUDIENCE}}. Target length {{TARGET_LENGTH}}.</p>
+
+<h2>1. The brief</h2>
+
+<div class="keep-together">
+<div class="card">
+  <strong>Watch these three before you open the timeline</strong>
+  <ul>
+    <li><a href="{{REF1_URL}}">Reference 1, the master</a>: {{REF1_ONE_LINE}}</li>
+    <li><a href="{{REF2_URL}}">Reference 2, the pacing benchmark</a>: {{REF2_ONE_LINE}}</li>
+    <li><a href="{{REF3_URL}}">Reference 3, the tone</a>: {{REF3_ONE_LINE}}</li>
+  </ul>
+</div>
+</div>
+
+<h3>What we are making</h3>
+<p>{{WHAT_WE_ARE_MAKING}}</p>
+
+<div class="keep-together">
+<h3>The one thing to take from reference 1</h3>
+<p>{{REF1_TAKEAWAY}}</p>
+<div class="refrow">
+  <figure><img src="refs/ref1-a.jpg" alt=""><figcaption>{{REF1_A_TS}} {{REF1_A_MOVE}}</figcaption></figure>
+  <figure><img src="refs/ref1-b.jpg" alt=""><figcaption>{{REF1_B_TS}} {{REF1_B_MOVE}}</figcaption></figure>
+  <figure><img src="refs/ref1-c.jpg" alt=""><figcaption>{{REF1_C_TS}} {{REF1_C_MOVE}}</figcaption></figure>
+  <figure><img src="refs/ref1-d.jpg" alt=""><figcaption>{{REF1_D_TS}} {{REF1_D_MOVE}}</figcaption></figure>
+</div>
+</div>
+
+<div class="keep-together">
+<h3>From reference 2</h3>
+<p>{{REF2_TAKEAWAY}}</p>
+<div class="refrow">
+  <figure><img src="refs/ref2-a.jpg" alt=""><figcaption>{{REF2_A_TS}} {{REF2_A_MOVE}}</figcaption></figure>
+  <figure><img src="refs/ref2-b.jpg" alt=""><figcaption>{{REF2_B_TS}} {{REF2_B_MOVE}}</figcaption></figure>
+  <figure><img src="refs/ref2-c.jpg" alt=""><figcaption>{{REF2_C_TS}} {{REF2_C_MOVE}}</figcaption></figure>
+  <figure><img src="refs/ref2-d.jpg" alt=""><figcaption>{{REF2_D_TS}} {{REF2_D_MOVE}}</figcaption></figure>
+</div>
+</div>
+
+<div class="keep-together">
+<h3>From reference 3</h3>
+<p>{{REF3_TAKEAWAY}}</p>
+<div class="refrow">
+  <figure><img src="refs/ref3-a.jpg" alt=""><figcaption>{{REF3_A_TS}} {{REF3_A_MOVE}}</figcaption></figure>
+  <figure><img src="refs/ref3-b.jpg" alt=""><figcaption>{{REF3_B_TS}} {{REF3_B_MOVE}}</figcaption></figure>
+  <figure><img src="refs/ref3-c.jpg" alt=""><figcaption>{{REF3_C_TS}} {{REF3_C_MOVE}}</figcaption></figure>
+  <figure><img src="refs/ref3-d.jpg" alt=""><figcaption>{{REF3_D_TS}} {{REF3_D_MOVE}}</figcaption></figure>
+</div>
+</div>
+
+<div class="keep-together">
+<h3>Pacing and framing</h3>
+<ul>
+  <li>{{PACING_NOTE_1}}</li>
+  <li>{{PACING_NOTE_2}}</li>
+  <li>{{FRAMING_NOTE}}</li>
+</ul>
+</div>
+
+<div class="keep-together">
+<h3>Technical</h3>
+<ul>
+  <li>Sequence: {{SEQUENCE_RES}} at {{SEQUENCE_FPS}}. Clips under the sequence resolution get scaled to frame size.</li>
+  <li>Export: {{EXPORT_SPEC}}.</li>
+  <li>Crop: {{CROP_DECISION}}.</li>
+  <li>Audio: use {{AUDIO_CHANNEL}}; ignore {{AUDIO_IGNORE}}.</li>
+  <li>Caption spellings: {{CAPTION_SPELLINGS}}.</li>
+</ul>
+</div>
+
+<div class="warn keep-together">
+  <strong>Warnings</strong>
+  <ul>
+    <li><span class="red">MUST NOT SURVIVE:</span> {{WARNING_1}}</li>
+    <li><span class="red">WRONG FACT ON CAMERA:</span> {{WARNING_2}}</li>
+    <li><span class="red">OPEN LOOP:</span> {{WARNING_3}}</li>
+  </ul>
+</div>
+
+<h2>2. File map</h2>
+
+<table>
+  <thead><tr><th>File</th><th>What it is / script section</th><th>Raw runtime</th><th>Format (probed)</th></tr></thead>
+  <tbody>
+    <tr><td>{{FILE_1}}</td><td>{{FILE_1_ROLE}}</td><td>{{FILE_1_RUNTIME}}</td><td>{{FILE_1_RES}} at {{FILE_1_FPS}}</td></tr>
+    <tr><td>{{FILE_2}}</td><td>{{FILE_2_ROLE}}</td><td>{{FILE_2_RUNTIME}}</td><td>{{FILE_2_RES}} at {{FILE_2_FPS}}</td></tr>
+  </tbody>
+</table>
+
+<h3>Sequences in the project (optional, only when an NLE project ships with the footage)</h3>
+<table>
+  <thead><tr><th>Sequence</th><th>Role</th><th>Use</th></tr></thead>
+  <tbody>
+    <tr><td>{{SEQ_1}}</td><td>{{SEQ_1_ROLE}}</td><td class="deliverable">THE DELIVERABLE, edit in this one</td></tr>
+    <tr><td>{{SEQ_2}}</td><td>{{SEQ_2_ROLE}}</td><td class="never">Internal, never publish</td></tr>
+  </tbody>
+</table>
+
+<h2>3. The cut</h2>
+
+<div class="legend">
+  <strong>How to read this section</strong>
+  <div class="row"><span class="keep">Black text: keep exactly as filmed.</span></div>
+  <div class="row"><span class="cut">Red struck text: do not use.</span> <span class="note">(When the timeline is pre-assembled, red means already cut; this legend says which applies: {{RED_MEANS}}.)</span></div>
+  <div class="row"><span class="add">Green box: a graphic or b-roll insert, placed at the exact line it belongs to.</span></div>
+  <div class="row"><span class="note">(Gray parenthetical: why this take was chosen, or a check-by-ear flag.)</span></div>
+</div>
+
+<div class="file-block first">
+<h3>{{FILE_1}} · {{FILE_1_ROLE}}</h3>
+<p class="note">(Timestamps are from the raw file. {{FILE_1_TS_NOTE}})</p>
+<p class="line"><span class="ts">[0:00]</span><span class="cut">Okay, this one is the intro.</span></p>
+<p class="line"><span class="ts">[0:03]</span><span class="cut">So the first thing you need to know is, um, the first thing</span></p>
+<p class="line"><span class="ts">[0:09]</span><span class="keep"><span class="cut">So so</span> the first thing you need to know is that nobody watches past the hook.</span> <span class="note">(Last complete take; the doubled "so" is struck inside the line.)</span></p>
+<span class="add">Number stamp on "nobody watches past the hook": show the retention figure from the brief, full frame for two seconds.</span>
+<p class="line"><span class="ts">[0:16]</span><span class="keep">Here is what I do instead.</span> <span class="note">(Check by ear: the timestamp on this file is approximate.)</span></p>
+</div>
+
+<div class="file-block long">
+<h3>{{FILE_2}} · {{FILE_2_ROLE}}</h3>
+<p class="line"><span class="ts">[0:00]</span><span class="keep">{{TRANSCRIPT_LINE}}</span></p>
+</div>
+
+<div class="page-break"></div>
+<h2>4. Notes for the owner</h2>
+
+<h3>Capture list</h3>
+<p>Every on-camera claim gets something on screen within two seconds. Each named tool, profile, dashboard, document or artefact below needs a capture, recorded by the person listed.</p>
+<table>
+  <thead><tr><th>At</th><th>Claim or name spoken</th><th>Capture needed</th><th>Recorded by</th></tr></thead>
+  <tbody>
+    <tr><td>{{TS}}</td><td>{{CLAIM}}</td><td>{{CAPTURE}}</td><td>{{WHO}}</td></tr>
+  </tbody>
+</table>
+
+<h3>Open decisions</h3>
+<ul>
+  <li>Title wording: {{TITLE_DECISION}}</li>
+  <li>Music: {{MUSIC_DECISION}}</li>
+  <li>Pending assets: {{PENDING_ASSETS}}</li>
+</ul>
+
+</body>
+</html>
