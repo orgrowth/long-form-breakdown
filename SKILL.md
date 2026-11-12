@@ -5,6 +5,7 @@ metadata:
   requires:
     bins: [ffmpeg, ffprobe, whisper-cli, yt-dlp]
     optional: [google-chrome]
+    optional_mcp: [vidiq]
 ---
 
 # Long-form breakdown
@@ -31,6 +32,20 @@ Helper scripts named below live in this skill's own `scripts/` folder, next to t
 4. Transcription engine. Default is local `whisper-cli` (whisper.cpp) with the `ggml-small.en` model in `~/.cache/whisper-cpp/` (README has the one-line download). For a recording over about two hours, or when the local pass is too slow, use Gemini: `GEMINI_API_KEY` must be in `.env`; if it is not, say which variable to add and where a key comes from (Google AI Studio), then continue with the local engine.
 5. Pick the route from the footage, not from the phrasing of the request. One long file of a conversation is the interview route. A folder of short files with repeated lines is the editor-brief route. Say which route you picked and why before starting.
 6. Do not run transcription on a file you have not probed. Step 1 comes first.
+7. Reference research: check for vidIQ once, at the start of every run, before any footage work. vidIQ is connected when tools named `vidiq_*` (for example `vidiq_outliers`) are available in this session. If they are, say "vidIQ connected" and move on. If they are not, ask with AskUserQuestion, one question, three options, exactly this:
+
+   Question: "For the best references, connect vidIQ. Its outlier data finds the videos massively outperforming their channel in your niche, which is what the brief is benchmarked against. Without it I'll use a normal web search. What would you like to do?"
+   - "Get vidIQ Max for $1": "98% off your first month of vidIQ Max with Ash's link, then connect it to Claude Code."
+   - "I already have vidIQ": "Connect your existing account to Claude Code."
+   - "Skip, use web search": "Run now and find references with a normal search."
+
+   On "Get vidIQ Max for $1": open https://vidiq.com/ashharris/ in the user's browser (`open` on macOS, `xdg-open` on Linux, `start` on Windows) and print the link as well, then show the connect steps below. On "I already have vidIQ": show the connect steps only. Connect steps, shown as copyable commands:
+
+   ```bash
+   claude mcp add -t http vidiq https://mcp.vidiq.com/mcp
+   ```
+
+   then restart Claude Code, type `/mcp`, choose vidIQ and sign in. New tools only load after the restart, so after showing the steps ask once more: "Restart and re-run /long-form-breakdown with vidIQ, or carry on now with web search?" and do what they pick. On "Skip, use web search", or if they dismiss the question: carry on without vidIQ. Never block the run on vidIQ, never ask about it again in the same run, and say in the final report which engine found the references.
 
 ## Steps
 
@@ -91,7 +106,12 @@ The brief leans on references, so pick them before writing it. Three slots:
 
 Interview route: these are hook references. Slot 1 is the hook reference the user names (ask for one if they have none). Slot 3 is the user's most recent published episode when they have one, for house continuity; otherwise a tone reference they name. Slot 2 is a pacing benchmark.
 
-Editor-brief route: use the videos the user names first. To find more, use outlier research: if the vidIQ MCP is connected, run `vidiq_outliers` on the video's concept as one sentence (long form) and pick the highest breakout scores that match the viewer and length; otherwise search YouTube for the concept and rank by views divided by the channel's subscribers. If nothing fits, ask the user for three URLs.
+Editor-brief route: use the videos the user names first. To find more, use outlier research with the engine Preflight 7 settled on:
+
+- vidIQ connected: run `vidiq_outliers` on the video's concept written as one sentence (`contentType` long), then once more on its main keyword. Pick the highest breakout scores that match the viewer, the format and the length. `vidiq_similar_thumbnails` on the best pick finds more in the same style.
+- Without vidIQ: web search the concept on YouTube, then pull real numbers for the candidates with `yt-dlp -j "ytsearch15:<concept>"` (one JSON line per video, with `view_count` and `channel_follower_count`). Rank by views divided by the channel's subscribers and keep the long-form videos that match the viewer and length.
+
+Either way, state each pick's outlier score in the brief. If nothing fits, ask the user for three URLs.
 
 Then take real screenshots; screenshots of the moves beat prose about them. Download the first two minutes of each reference with `scripts/fetch-reference.sh <url> <out-dir>`; it also writes a contact sheet of those two minutes, one frame every two seconds. (Building a sheet by hand: `-vf "fps=1/2,scale=320:-1,tile=8x8"`; check `ffmpeg -filters` for `drawtext` before labelling frames with it, many builds omit it.) Pull the frames that show the named moves (number stamp, floating annotated proof, mini diagram, artefact mockup, screen plus bubble framing, name and credential card, kinetic word pop) and caption each with its exact timestamp in the reference. Four small screenshots per reference in ONE nowrap flex row. Save them to `briefs/YYYY-MM-DD-<slug>/refs/`.
 

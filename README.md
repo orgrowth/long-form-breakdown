@@ -11,7 +11,7 @@ The more direction an editor gets, the fewer revisions you go through. A good br
 1. Probes every file in your footage folder (duration, resolution, frame rate, audio) and looks at a frame from each.
 2. Transcribes everything locally with Whisper, one line per utterance with timestamps, keeping every false start so the takes are visible.
 3. Reads the transcript like an editor reads a script: picks the best take of each line, marks restarts, trailing-off lines and dead pauses as cuts, and flags swearing, wrong facts and promises the cut no longer pays off.
-4. Finds three reference videos (the master, the pacing benchmark, the tone), using vidIQ outliers if you have the vidIQ MCP connected, downloads the first two minutes of each and pulls screenshots of the moves worth copying.
+4. Finds three reference videos (the master, the pacing benchmark, the tone) by outlier score: the videos far outperforming their own channel. With vidIQ connected it uses vidIQ's outlier data; without it, a normal web search ranked by views per subscriber. It then downloads the first two minutes of each and pulls screenshots of the moves worth copying.
 5. Suggests the graphics to add at each key line as green boxes in the transcript.
 6. Renders one PDF in the fix-notes convention: black text is kept, red struck text is cut, green boxes are graphics to add.
 
@@ -28,7 +28,13 @@ mkdir -p ~/.cache/whisper-cpp && curl -L -o ~/.cache/whisper-cpp/ggml-small.en.b
 ```
 
 - Google Chrome or Chromium, for the PDF (without it you get the brief as HTML)
-- Optional: the vidIQ MCP connected to Claude Code, for outlier reference research
+- Recommended: vidIQ connected to Claude Code, for the best reference research. The skill checks on every run and offers to set it up; skip it and it uses a normal web search instead. [vidIQ Max for $1](https://vidiq.com/ashharris/) (98% off your first month), then:
+
+```bash
+claude mcp add -t http vidiq https://mcp.vidiq.com/mcp
+```
+
+  Restart Claude Code, type `/mcp`, choose vidIQ and sign in.
 
 ## Install
 
